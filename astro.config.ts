@@ -31,7 +31,7 @@ export default defineConfig({
   // Top-Level Options
   site: 'https://pengJiang0930.github.io',
   // Deploy to a sub path; See https://astro-pure.js.org/docs/setup/deployment#platform-with-base-path
-  // base: '/blog/',
+  base: '/blog/',
   trailingSlash: 'never',
 
   // Adapter
