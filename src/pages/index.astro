@@ -9,48 +9,57 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import ProjectCard from '@/components/home/ProjectCard.astro'
 import Section from '@/components/home/Section.astro'
 import SkillLayout from '@/components/home/SkillLayout.astro'
+import WorkExperience from '@/components/home/WorkExperience.astro'
+import ContributionGraph from '@/components/home/ContributionGraph.astro'
 import avatar from '@/assets/avatar.jpg'
 import config from '@/site-config'
 
 
-const webDevelopment = [
-  'Vue',
-  'Node',
-  'JavaScript',
-  'CSS',
-  'HTML'
+const ai = [
+  'Python',
+  'PyTorch',
+  'TensorFlow',
+  'Transformer',
+  'NLP',
+  '模型微调',
+  'Embedding',
+  
 ]
 
+const agent = [
+  'LangChain/Graph',
+  'Spring AI',
+  'Multi-Agent Workflow',
+  'RAG',
+  'NL2SQL',
+  'Function Calling',
+  'Prompt Engineering',
+  'Memory',
+  'MCP',
+]
 
-const generalProgramming = [
-  'Java Core',
+const backend = [
+  'Java',
   'Spring Boot',
   'Spring Cloud',
-  'Mybatis',
-]
-
-const Middleware = [
-  'RabbitMQ',
-  'RocketMQ',
+  'MyBatis-Plus',
   'Netty',
-  'Gateway',
-  'OpenFeign',
-  'Nacos / Sentinel / Seata',
-]
-
-const dataSource = [
-  'MySQl',
-  'Oracle',
+  'MySQL',
   'Redis',
-  'ShardingSphere'
+  'Kafka',
+  'Elasticsearch',
 ]
 
-const others = [
+const devops = [
+  'Docker',
+  'Kubernetes',
   'Linux',
   'Nginx',
-  'Docker',
+  'Git',
+  'CI/CD',
+  'Prometheus',
+  'Grafana',
 ]
-
 
 
 
@@ -80,14 +89,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
           <Label title='GitHub' as='a' href='' target='_blank'>
             <Icon name='github' class='size-5' slot='icon' />
           </Label>
-          <Label title='Email' as='a' href='' target='_blank'>
+          <Label title='peng@qq.com'>
             <Icon name='email' class='size-5' slot='icon' />
-          </Label>
-          <Label title='知乎' as='a' href='' target='_blank'>
-            <Icon name='zhihu' class='size-5' slot='icon' />
-          </Label>
-          <Label title='推特' as='a' href='' target='_blank'>
-            <Icon name='x' class='size-5' slot='icon' />
           </Label>
         </div>
       </div>
@@ -95,8 +98,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
       
     </section>
 
-    <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
-      <Section title='About'>
+    <div id='content' class='animate flex flex-col gap-y-10 w-full max-w-6xl mx-auto'>
+      <Section title='关于我'>
         <p class='text-muted-foreground mt-1'>Developer / Novelist / <del>Student </del></p>
         <div class='flex flex-col gap-2 leading-6 text-muted-foreground'>
           <p>Java programmer, passionate about programming, fond of learning new things, enjoys reading, writing, listening to music, and playing games。</p>
@@ -104,9 +107,13 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         </div>
         <!-- <Button title='More about me' class='w-fit self-end' href='/about' style='ahead' /> -->
       </Section>
+
+      <Section title='记录'>
+        <ContributionGraph posts={allPosts} />
+      </Section>
       {
         allPostsByDate.length > 0 && (
-          <Section title='Posts'>
+          <Section title='博文'>
             <ul class='flex flex-col gap-y-1.5 sm:gap-y-2'>
               {allPostsByDate.map((p) => (
                 <li class='flex flex-col gap-x-2 sm:flex-row'>
@@ -119,23 +126,29 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         )
       }
 
-      {
- 
-      }
-      <Section title='Education'>
-        <Card
-          as='a'
-          heading='山东现代学院'
-          subheading='计算机科学与技术'
-          date='Graduation Year: 2023.06'
-        >
-          <img
-            class='absolute end-0 z-0 m-0 -my-3 h-full w-1/2 object-cover opacity-40'
-            src='/images/xdxy.jpg'
-          />
-        </Card>
+      <Section title='工作经历'>
+        <WorkExperience
+          company='某科技有限公司'
+          position='高级 Java 开发工程师'
+          period='2023.06 - 至今'
+          description='负责公司核心业务系统的架构设计与开发，主导微服务架构的落地实施，优化系统性能和稳定性。'
+          highlights={['Spring Cloud', '微服务架构', '高并发优化', '团队管理']}
+        />
+        <WorkExperience
+          company='某互联网公司'
+          position='Java 开发工程师'
+          period='2021.07 - 2023.05'
+          description='参与电商平台后端开发，负责订单系统、支付模块的设计与实现，确保系统高可用和数据一致性。'
+          highlights={['Spring Boot', 'MySQL', 'Redis', 'RabbitMQ']}
+        />
+        <WorkExperience
+          company='某软件公司'
+          position='初级 Java 开发工程师'
+          period='2020.03 - 2021.06'
+          description='参与企业级管理系统的开发，负责后端接口开发与数据库设计，积累扎实的 Java 基础和项目经验。'
+          highlights={['Java Core', 'MyBatis', 'Oracle', 'Linux']}
+        />
       </Section>
-      
 
       <!-- <Section title='Website List'>
         <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
@@ -176,12 +189,13 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
         />
       </Section> -->
 
-      <Section title='Skills'>
-        <SkillLayout title='Web' skills={webDevelopment} />
-        <SkillLayout title='Programming' skills={generalProgramming} />
-        <SkillLayout title='Middleware ' skills={Middleware } />
-        <SkillLayout title='DataSource' skills={dataSource} />
-        <SkillLayout title='Other' skills={others} />
+      <Section title='技术栈'>
+        <div class='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <SkillLayout title='AI infra' skills={ai} />
+          <SkillLayout title='Agent dev' skills={agent} />
+          <SkillLayout title='后端' skills={backend} />
+          <SkillLayout title='运维' skills={devops} />
+        </div>
       </Section>
     </div>
    <Quote class='mt-12' /> 
